@@ -15,8 +15,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     const queryImageInput = document.getElementById('queryImageInput');
     const compareButton = document.getElementById('compareButton');
     const meanDistanceOutput = document.getElementById('meanDistance');
+    var imageContainer = document.getElementById('imagesBox');
+    const queryimagesBox = document.getElementById('queryimagesBox')
 
     let labeledDescriptors = [];
+
+    imageInput.addEventListener('change', function() {
+        imageContainer.innerHTML = '';
+      
+        for (const file of imageInput.files) {
+            const imgget = new FileReader();
+            imgget.onload = function(e) {
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result;
+                console.log(e.target)
+                imgElement.style.width = '200px';
+                imgElement.style.height = '200px';
+                imgElement.style.margin = '4px'; 
+                imageContainer.appendChild(imgElement);
+            };
+            // console.log()
+            imgget.readAsDataURL(file);
+        }
+    });
+    // console.log(imageInput);
+    // console.log(imageContainer);
 
     analyzeButton.addEventListener('click', async () => {
         const files = imageInput.files;
@@ -39,6 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Please select one or more image files.');
         }
     });
+
+   
+      console.log(imageContainer)
 
     copyButton.addEventListener('click', () => {
         descriptorOutput.select();
@@ -74,3 +100,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 });
+
+  // Get references to the input and image container elements
+//   const imageInput = document.getElementById('imageInput');
+  
+  // Add an event listener to the input element
